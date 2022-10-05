@@ -1109,7 +1109,7 @@ class PluginSinglesignonProvider extends CommonDBTM {
       }
 
       $remote_id = false;
-      $remote_id_fields = ['id', 'username'];
+      $remote_id_fields = ['id', 'username', 'sub'];
 
       foreach ($remote_id_fields as $field) {
          if (isset($resource_array[$field]) && !empty($resource_array[$field])) {
@@ -1138,7 +1138,7 @@ class PluginSinglesignonProvider extends CommonDBTM {
 
       $split = $this->fields['split_domain'];
       $login = false;
-      $login_fields = ['userPrincipalName','login', 'username', 'id'];
+      $login_fields = ['userPrincipalName','login', 'username', 'id', 'sub'];
 
       foreach ($login_fields as $field) {
          if (isset($resource_array[$field]) && is_string($resource_array[$field])) {
