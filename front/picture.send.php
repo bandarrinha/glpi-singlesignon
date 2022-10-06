@@ -21,7 +21,7 @@
  * ---------------------------------------------------------------------
  * @copyright Copyright © 2021 - 2022 Edgard
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
- * @link      https://github.com/edgardmessias/glpi-singlesignon/
+ * @link      https://github.com/bandarrinha/glpi-singlesignon/
  * ---------------------------------------------------------------------
  */
 

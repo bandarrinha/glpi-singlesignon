@@ -21,7 +21,7 @@
  * ---------------------------------------------------------------------
  * @copyright Copyright © 2021 - 2022 Edgard
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
- * @link      https://github.com/edgardmessias/glpi-singlesignon/
+ * @link      https://github.com/bandarrinha/glpi-singlesignon/
  * ---------------------------------------------------------------------
  */
 
@@ -35,7 +35,7 @@ use Symfony\Component\Finder\Finder;
 class RoboFile extends \Robo\Tasks {
 
    protected $name = "singlesignon";
-   protected $issues = "https://github.com/edgardmessias/glpi-singlesignon/issues";
+   protected $issues = "https://github.com/bandarrinha/glpi-singlesignon/issues";
 
    protected function getLocaleFiles() {
       $finder = new Finder();

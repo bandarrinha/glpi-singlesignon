@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: singlesignon 1.3.1\n"
-"Report-Msgid-Bugs-To: https://github.com/edgardmessias/glpi-singlesignon/"
+"Report-Msgid-Bugs-To: https://github.com/bandarrinha/glpi-singlesignon/"
 "issues\n"
 "POT-Creation-Date: 2022-06-28 23:01-0300\n"
 "PO-Revision-Date: 2022-03-23 14:35+0100\n"

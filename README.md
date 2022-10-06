@@ -1,9 +1,9 @@
 # Single Sign-On for GLPI
 
-![Lint](https://github.com/edgardmessias/glpi-singlesignon/workflows/Lint/badge.svg)
-[![CodeFactor](https://www.codefactor.io/repository/github/edgardmessias/glpi-singlesignon/badge)](https://www.codefactor.io/repository/github/edgardmessias/glpi-singlesignon)
-[![Total Downloads](https://img.shields.io/github/downloads/edgardmessias/glpi-singlesignon/total.svg)](https://github.com/edgardmessias/glpi-singlesignon/releases)
-[![Current Release](https://img.shields.io/github/release/edgardmessias/glpi-singlesignon.svg)](https://github.com/edgardmessias/glpi-singlesignon/releases/latest)
+![Lint](https://github.com/bandarrinha/glpi-singlesignon/workflows/Lint/badge.svg)
+[![CodeFactor](https://www.codefactor.io/repository/github/bandarrinha/glpi-singlesignon/badge)](https://www.codefactor.io/repository/github/bandarrinha/glpi-singlesignon)
+[![Total Downloads](https://img.shields.io/github/downloads/bandarrinha/glpi-singlesignon/total.svg)](https://github.com/bandarrinha/glpi-singlesignon/releases)
+[![Current Release](https://img.shields.io/github/release/bandarrinha/glpi-singlesignon.svg)](https://github.com/bandarrinha/glpi-singlesignon/releases/latest)
 
 Single sign-on (SSO) is a property of access control of multiple related, yet independent, software systems. With this property, a user logs in with a single ID and password to gain access to any of several related systems.
 

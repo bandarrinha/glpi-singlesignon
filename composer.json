@@ -1,5 +1,5 @@
 {
-    "name": "edgardmessias/glpi-singlesignon",
+    "name": "bandarrinha/glpi-singlesignon",
     "description": "Single Sign-On (OAuth) for GLPI",
     "license": "GPL-3.0-or-later",
     "require-dev": {

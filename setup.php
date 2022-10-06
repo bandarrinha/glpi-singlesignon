@@ -21,7 +21,7 @@
  * ---------------------------------------------------------------------
  * @copyright Copyright © 2021 - 2022 Edgard
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
- * @link      https://github.com/edgardmessias/glpi-singlesignon/
+ * @link      https://github.com/bandarrinha/glpi-singlesignon/
  * ---------------------------------------------------------------------
  */
 
@@ -67,7 +67,7 @@ function plugin_version_singlesignon() {
       'name'           => __sso('Single Sign-on'),
       'version'        => PLUGIN_SINGLESIGNON_VERSION,
       'author'         => 'Edgard Lorraine Messias',
-      'homepage'       => 'https://github.com/edgardmessias/glpi-singlesignon',
+      'homepage'       => 'https://github.com/bandarrinha/glpi-singlesignon',
       'minGlpiVersion' => '0.85'
    ];
 }

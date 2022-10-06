@@ -3,7 +3,7 @@
     <name>Single Sign-On</name>
     <key>singlesignon</key>
     <state>stable</state>
-    <logo>https://raw.githubusercontent.com/edgardmessias/glpi-singlesignon/master/plugin.png</logo>
+    <logo>https://raw.githubusercontent.com/bandarrinha/glpi-singlesignon/master/plugin.png</logo>
     <description>
         <short>
             <en><![CDATA[Allow to login in GLPI with Single sign-on (SSO)]]></en>
@@ -12,10 +12,10 @@
             <en><![CDATA[
 # Single Sign-On for GLPI
 
-[![Build Status](https://travis-ci.org/edgardmessias/glpi-singlesignon.svg?branch=master)](https://travis-ci.org/edgardmessias/glpi-singlesignon)
-[![CodeFactor](https://www.codefactor.io/repository/github/edgardmessias/glpi-singlesignon/badge)](https://www.codefactor.io/repository/github/edgardmessias/glpi-singlesignon)
-[![Total Downloads](https://img.shields.io/github/downloads/edgardmessias/glpi-singlesignon/total.svg)](https://github.com/edgardmessias/glpi-singlesignon/releases)
-[![Current Release](https://img.shields.io/github/release/edgardmessias/glpi-singlesignon.svg)](https://github.com/edgardmessias/glpi-singlesignon/releases/latest)
+[![Build Status](https://travis-ci.org/bandarrinha/glpi-singlesignon.svg?branch=master)](https://travis-ci.org/bandarrinha/glpi-singlesignon)
+[![CodeFactor](https://www.codefactor.io/repository/github/bandarrinha/glpi-singlesignon/badge)](https://www.codefactor.io/repository/github/bandarrinha/glpi-singlesignon)
+[![Total Downloads](https://img.shields.io/github/downloads/bandarrinha/glpi-singlesignon/total.svg)](https://github.com/bandarrinha/glpi-singlesignon/releases)
+[![Current Release](https://img.shields.io/github/release/bandarrinha/glpi-singlesignon.svg)](https://github.com/bandarrinha/glpi-singlesignon/releases/latest)
 
 Single sign-on (SSO) is a property of access control of multiple related, yet independent, software systems. With this property, a user logs in with a single ID and password to gain access to any of several related systems.
 
@@ -38,10 +38,10 @@ Single sign-on (SSO) is a property of access control of multiple related, yet in
 ]]></en>
         </long>
     </description>
-    <homepage>https://github.com/edgardmessias/glpi-singlesignon</homepage>
-    <download>https://github.com/edgardmessias/glpi-singlesignon/releases</download>
-    <issues>https://github.com/edgardmessias/glpi-singlesignon/issues</issues>
-    <readme>https://github.com/edgardmessias/glpi-singlesignon/wiki</readme>
+    <homepage>https://github.com/bandarrinha/glpi-singlesignon</homepage>
+    <download>https://github.com/bandarrinha/glpi-singlesignon/releases</download>
+    <issues>https://github.com/bandarrinha/glpi-singlesignon/issues</issues>
+    <readme>https://github.com/bandarrinha/glpi-singlesignon/wiki</readme>
     <authors>
         <author>Edgard Lorraine Messias</author>
     </authors>
@@ -106,7 +106,7 @@ Single sign-on (SSO) is a property of access control of multiple related, yet in
         </en>
     </tags>
     <screenshots>
-      <screenshot>https://raw.githubusercontent.com/edgardmessias/glpi-singlesignon/master/screenshots/image_1.png</screenshot>
-      <screenshot>https://raw.githubusercontent.com/edgardmessias/glpi-singlesignon/master/screenshots/image_1.png</screenshot>
+      <screenshot>https://raw.githubusercontent.com/bandarrinha/glpi-singlesignon/master/screenshots/image_1.png</screenshot>
+      <screenshot>https://raw.githubusercontent.com/bandarrinha/glpi-singlesignon/master/screenshots/image_1.png</screenshot>
    </screenshots>
 </root>
