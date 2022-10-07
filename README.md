@@ -23,6 +23,7 @@ Single sign-on (SSO) is a property of access control of multiple related, yet in
  * Google - https://developers.google.com/identity/protocols/OpenIDConnect
  * Instagram - https://www.instagram.com/developer/authentication/
  * LinkedIn - https://docs.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow?context=linkedin/context
+ * gov.br - https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html
  * Generic - Allow to define custom URLs
 
 # Screenshots

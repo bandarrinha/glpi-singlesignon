@@ -25,7 +25,7 @@
  * ---------------------------------------------------------------------
  */
 
-define('PLUGIN_SINGLESIGNON_VERSION', '1.3.3');
+define('PLUGIN_SINGLESIGNON_VERSION', '1.4.0');
 
 $folder = basename(dirname(__FILE__));
 
@@ -66,7 +66,7 @@ function plugin_version_singlesignon() {
    return [
       'name'           => __sso('Single Sign-on'),
       'version'        => PLUGIN_SINGLESIGNON_VERSION,
-      'author'         => 'Edgard Lorraine Messias',
+      'author'         => 'Daniel Bandarrinha',
       'homepage'       => 'https://github.com/bandarrinha/glpi-singlesignon',
       'minGlpiVersion' => '0.85'
    ];

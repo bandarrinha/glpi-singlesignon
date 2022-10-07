@@ -119,7 +119,7 @@ class PluginSinglesignonProvider extends CommonDBTM {
       echo "<textarea name='comment' >" . $this->fields["comment"] . "</textarea>";
       echo "</td></tr>";
 
-      $on_change = 'var _value = this.options[this.selectedIndex].value; $(".sso_url").toggle(_value == "generic");';
+      $on_change = 'var _value = this.options[this.selectedIndex].value; $(".sso_url").toggle(_value == "generic" || _value == "govbr"); $(".sso_govbr").toggle(_value == "govbr");';
 
       echo "<tr class='tab_bg_1'>";
       echo "<td>" . __sso('SSO Type') . "</td><td>";
@@ -136,11 +136,18 @@ class PluginSinglesignonProvider extends CommonDBTM {
       echo "<td><input type='text' style='width:96%' name='client_secret' value='" . $this->fields["client_secret"] . "'></td>";
       echo "</tr>\n";
 
-      $url_style = "";
+      $hide_url_fields = "";
 
-      if ($this->fields["type"] != 'generic') {
-         $url_style = 'style="display: none;"';
+      if ($this->fields["type"] != 'generic' && $this->fields["type"] != 'govbr') {
+         $hide_url_fields = 'style="display: none;"';
       }
+
+      $hide_govbr_fields = "";
+
+      if ($this->fields["type"] != 'govbr') {
+         $hide_govbr_fields = 'style="display: none;"';
+      }
+
 
       echo "<tr class='tab_bg_1'>";
       echo "<td>" . __sso('Scope') . "</td>";
@@ -149,20 +156,36 @@ class PluginSinglesignonProvider extends CommonDBTM {
       echo "<td><input type='text' style='width:96%' name='extra_options' value='" . $this->fields["extra_options"] . "'></td>";
       echo "</tr>\n";
 
-      echo "<tr class='tab_bg_1 sso_url' $url_style>";
+      echo "<tr class='tab_bg_1 sso_url' $hide_url_fields>";
       echo "<td>" . __sso('Authorize URL') . "</td>";
       echo "<td colspan='3'><input type='text' style='width:96%' name='url_authorize' value='" . $this->getAuthorizeUrl() . "'></td>";
       echo "</tr>\n";
 
-      echo "<tr class='tab_bg_1 sso_url' $url_style>";
+      echo "<tr class='tab_bg_1 sso_url' $hide_url_fields>";
       echo "<td>" . __sso('Access Token URL') . "</td>";
       echo "<td colspan='3'><input type='text' style='width:96%' name='url_access_token' value='" . $this->getAccessTokenUrl() . "'></td>";
       echo "</tr>\n";
 
-      echo "<tr class='tab_bg_1 sso_url' $url_style>";
+      echo "<tr class='tab_bg_1 sso_url' $hide_url_fields>";
       echo "<td>" . __sso('Resource Owner Details URL') . "</td>";
       echo "<td colspan='3'><input type='text' style='width:96%' name='url_resource_owner_details' value='" . $this->getResourceOwnerDetailsUrl() . "'></td>";
       echo "</tr>\n";
+
+      echo "<tr class='tab_bg_1 sso_govbr' $hide_govbr_fields>";
+      echo "<td>" . __sso('Gov.br Levels API URL') . "</td>";
+      echo "<td colspan='3'><input type='text' style='width:96%' name='url_govbr_levels' value='" . $this->getGovbrLevelsAPIUrl() . "'></td>";
+      echo "</tr>\n";
+
+      echo "<tr class='tab_bg_1 sso_govbr' $hide_govbr_fields>";
+      echo "<td>" . __sso('Gov.br Required Levels') . "</td>";
+      echo "<td colspan='3'><input type='text' style='width:96%' name='govbr_required_levels' value='" . $this->getGovbrRequiredLevels() . "'></td>";
+      echo "</tr>\n";
+
+      echo "<tr class='tab_bg_1 sso_govbr' $hide_govbr_fields>";
+      echo "<td>" . __sso('Gov.br use email to link user account') . "</td>";
+      echo "<td>";
+      Dropdown::showYesNo("govbr_use_email_to_link_account", $this->fields["govbr_use_email_to_link_account"]);
+      echo "</td></tr>\n";
 
       echo "<tr class='tab_bg_1'>";
       echo "<td>" . __('IsDefault', 'singlesignon') . "</td><td>";
@@ -347,7 +370,7 @@ class PluginSinglesignonProvider extends CommonDBTM {
          $error_detected[] = __sso('A Client Secret is required');
       }
 
-      if ($type === 'generic') {
+      if ($type === 'generic' || $type === 'govbr') {
          if (!isset($input['url_authorize']) || empty($input['url_authorize'])) {
             $error_detected[] = __sso('An Authorize URL is required');
          } else if (!filter_var($input['url_authorize'], FILTER_VALIDATE_URL)) {
@@ -520,6 +543,14 @@ class PluginSinglesignonProvider extends CommonDBTM {
       ];
 
       $tab[] = [
+         'id' => 31,
+         'table' => $this->getTable(),
+         'field' => 'url_govbr_levels',
+         'name' => __sso('Gov.br Levels API URL'),
+         'datatype' => 'weblink',
+      ];
+
+      $tab[] = [
          'id' => 10,
          'table' => $this->getTable(),
          'field' => 'is_active',
@@ -580,7 +611,8 @@ class PluginSinglesignonProvider extends CommonDBTM {
       $options['github'] = __sso('GitHub');
       $options['google'] = __sso('Google');
       $options['instagram'] = __sso('Instagram');
-      $options['linkedin'] = __sso('LinkdeIn');
+      $options['linkedin'] = __sso('LinkedIn');
+      $options['govbr'] = __sso('gov.br');
 
       return $options;
    }
@@ -857,6 +889,36 @@ class PluginSinglesignonProvider extends CommonDBTM {
       return $url;
    }
 
+   public function getGovbrLevelsAPIUrl($cpf = null) {
+      $type = $this->getClientType();
+
+      $value = static::getDefault($type, "url_govbr_levels", "");
+
+      $fields = $this->fields;
+
+      if (!isset($fields['url_govbr_levels']) || empty($fields['url_govbr_levels'])) {
+         $fields['url_govbr_levels'] = $value;
+      }
+
+      $fields = Plugin::doHookFunction("sso:url_govbr_levels", $fields);
+
+      $url = $fields['url_govbr_levels'];
+
+      $url = str_replace("cpf", $cpf, $url);
+
+      return $url;
+   }
+
+   public function getGovbrRequiredLevels() {
+      $value = "";
+
+      if (isset($this->fields['govbr_required_levels']) && !empty($this->fields['govbr_required_levels'])) {
+         $value = $this->fields['govbr_required_levels'];
+      }
+
+      return $value;
+   }
+
    /**
     * Get current URL without query string
     * @return string
@@ -1092,6 +1154,75 @@ class PluginSinglesignonProvider extends CommonDBTM {
       return $this->_resource_owner;
    }
 
+   /**
+    *
+    * @return boolean
+    */
+    public function checkGovbrRequiredLevels() {
+      $required_levels = $this->getGovbrRequiredLevels();
+      if (!isset($required_levels) || empty($required_levels)) {
+         return true;
+      }
+      $token = $this->getAccessToken();
+      if (!$token) {
+         return false;
+      }
+      $resource_array = $this->getResourceOwner();
+
+      if (!$resource_array) {
+         return false;
+      }
+      $cpf = $resource_array['sub'];
+      if (!$cpf) {
+         return false;
+      }
+      if ($this->debug) {
+         print_r($resource_array);
+         print_r($cpf);
+      }
+
+      $url = $this->getGovbrLevelsAPIUrl($cpf);
+
+      $headers = [
+         "Accept:application/json",
+         "Authorization:Bearer $token",
+      ];
+
+      $headers = Plugin::doHookFunction("sso:govbr_levels_header", $headers);
+
+      $content = Toolbox::callCurl($url, [
+         CURLOPT_HTTPHEADER => $headers,
+         CURLOPT_SSL_VERIFYHOST => false,
+         CURLOPT_SSL_VERIFYPEER => false,
+      ]);
+
+      if ($this->debug) {
+         print_r("\ncheckGovbrRequiredLevels: $url\n");
+      }
+
+      try {
+         $data = json_decode($content, true);
+         if ($this->debug) {
+            print_r($data);
+         }
+         if (empty($data) || !is_array($data)) {
+            return false;
+         }
+         foreach ($data as $level) {
+            if (strpos($required_levels, $level['id'])!== false) {
+               return true;
+            }
+         }
+      } catch (\Exception $ex) {
+         if ($this->debug) {
+            print_r($content);
+         }
+         return false;
+      }
+
+      return false;
+   }
+
    public function findUser() {
       $resource_array = $this->getResourceOwner();
 
@@ -1140,6 +1271,12 @@ class PluginSinglesignonProvider extends CommonDBTM {
       $login = false;
       $login_fields = ['userPrincipalName','login', 'username', 'id', 'sub'];
 
+      $authorizedDomainsString = $this->fields['authorized_domains'];
+      $authorizedDomains = [];
+      if (isset($authorizedDomainsString)) {
+         $authorizedDomains = explode(',', $authorizedDomainsString);
+      }
+
       foreach ($login_fields as $field) {
          if (isset($resource_array[$field]) && is_string($resource_array[$field])) {
             $login = $resource_array[$field];
@@ -1165,11 +1302,9 @@ class PluginSinglesignonProvider extends CommonDBTM {
       }
 
       $email = false;
-      $email_fields = ['email', 'e-mail', 'email-address', 'mail'];
-      $authorizedDomainsString = $this->fields['authorized_domains'];
-      $authorizedDomains = [];
-      if (isset($authorizedDomainsString)) {
-         $authorizedDomains = explode(',', $authorizedDomainsString);
+      $email_fields = [];
+      if ($this->fields["type"] != 'govbr' || !isset($this->fields['govbr_use_email_to_link_account']) || $this->fields['govbr_use_email_to_link_account']) {
+         $email_fields = ['email', 'e-mail', 'email-address', 'mail'];
       }
 
       foreach ($email_fields as $field) {

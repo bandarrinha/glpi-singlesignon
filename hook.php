@@ -216,25 +216,28 @@ function plugin_singlesignon_install() {
 
    if (!sso_TableExists("glpi_plugin_singlesignon_providers")) {
       $query = "CREATE TABLE `glpi_plugin_singlesignon_providers` (
-                  `id`                         int(11) NOT NULL auto_increment,
-                  `is_default`                 tinyint(1) NOT NULL DEFAULT '0',
-                  `popup`                      tinyint(1) NOT NULL DEFAULT '0',
-                  `split_domain`               tinyint(1) NOT NULL DEFAULT '0',
-                  `authorized_domains`         varchar(255) COLLATE utf8_unicode_ci NULL,
-                  `type`                       varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-                  `name`                       varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-                  `client_id`                  varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-                  `client_secret`              varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-                  `scope`                      varchar(255) COLLATE utf8_unicode_ci NULL,
-                  `extra_options`              varchar(255) COLLATE utf8_unicode_ci NULL,
-                  `url_authorize`              varchar(255) COLLATE utf8_unicode_ci NULL,
-                  `url_access_token`           varchar(255) COLLATE utf8_unicode_ci NULL,
-                  `url_resource_owner_details` varchar(255) COLLATE utf8_unicode_ci NULL,
-                  `is_active`                  tinyint(1) NOT NULL DEFAULT '0',
-                  `is_deleted`                 tinyint(1) NOT NULL default '0',
-                  `comment`                    text COLLATE utf8_unicode_ci,
-                  `date_mod`                   datetime DEFAULT NULL,
-                  `date_creation`              datetime DEFAULT NULL,
+                  `id`                              int(11) NOT NULL auto_increment,
+                  `is_default`                      tinyint(1) NOT NULL DEFAULT '0',
+                  `popup`                           tinyint(1) NOT NULL DEFAULT '0',
+                  `split_domain`                    tinyint(1) NOT NULL DEFAULT '0',
+                  `authorized_domains`              varchar(255) COLLATE utf8_unicode_ci NULL,
+                  `type`                            varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+                  `name`                            varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+                  `client_id`                       varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+                  `client_secret`                   varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+                  `scope`                           varchar(255) COLLATE utf8_unicode_ci NULL,
+                  `extra_options`                   varchar(255) COLLATE utf8_unicode_ci NULL,
+                  `url_authorize`                   varchar(255) COLLATE utf8_unicode_ci NULL,
+                  `url_access_token`                varchar(255) COLLATE utf8_unicode_ci NULL,
+                  `url_resource_owner_details`      varchar(255) COLLATE utf8_unicode_ci NULL,
+                  `url_govbr_levels`                varchar(255) COLLATE utf8_unicode_ci NULL,
+                  `govbr_required_levels`           varchar(255) COLLATE utf8_unicode_ci NULL,
+                  `govbr_use_email_to_link_account` tinyint(1) NOT NULL DEFAULT '0',
+                  `is_active`                       tinyint(1) NOT NULL DEFAULT '0',
+                  `is_deleted`                      tinyint(1) NOT NULL default '0',
+                  `comment`                         text COLLATE utf8_unicode_ci,
+                  `date_mod`                        datetime DEFAULT NULL,
+                  `date_creation`                   datetime DEFAULT NULL,
                   PRIMARY KEY (`id`),
                   KEY `date_mod` (`date_mod`),
                   KEY `date_creation` (`date_creation`)
@@ -262,6 +265,22 @@ function plugin_singlesignon_install() {
       $result = $DB->query($query) or die($DB->error());
       if ($DB->numrows($result) != 1) {
          $DB->query("ALTER TABLE glpi_plugin_singlesignon_providers ADD authorized_domains varchar(255) COLLATE utf8_unicode_ci NULL") or die($DB->error());
+      }
+
+      $query = "SHOW COLUMNS FROM glpi_plugin_singlesignon_providers LIKE 'url_govbr_levels'";
+      $result = $DB->query($query) or die($DB->error());
+      if ($DB->numrows($result) != 1) {
+         $DB->query("ALTER TABLE glpi_plugin_singlesignon_providers ADD url_govbr_levels varchar(255) COLLATE utf8_unicode_ci NULL") or die($DB->error());
+      }
+      $query = "SHOW COLUMNS FROM glpi_plugin_singlesignon_providers LIKE 'govbr_required_levels'";
+      $result = $DB->query($query) or die($DB->error());
+      if ($DB->numrows($result) != 1) {
+         $DB->query("ALTER TABLE glpi_plugin_singlesignon_providers ADD govbr_required_levels varchar(255) COLLATE utf8_unicode_ci NULL") or die($DB->error());
+      }
+      $query = "SHOW COLUMNS FROM glpi_plugin_singlesignon_providers LIKE 'govbr_use_email_to_link_account'";
+      $result = $DB->query($query) or die($DB->error());
+      if ($DB->numrows($result) != 1) {
+         $DB->query("ALTER TABLE glpi_plugin_singlesignon_providers ADD govbr_use_email_to_link_account tinyint(1) NOT NULL DEFAULT '0'") or die($DB->error());
       }
    }
 
@@ -301,6 +320,14 @@ function plugin_singlesignon_install() {
    Config::setConfigurationValues('singlesignon', [
       'version' => PLUGIN_SINGLESIGNON_VERSION,
    ]);
+
+   if (!defined("PLUGINFIELDS_DOC_DIR")) {
+      define("PLUGINFIELDS_DOC_DIR", GLPI_PLUGIN_DOC_DIR . "/singlesignon");
+   }
+   if (!file_exists(PLUGINFIELDS_DOC_DIR)) {
+      mkdir(PLUGINFIELDS_DOC_DIR);
+   }
+
    return true;
 }
 
@@ -322,6 +349,11 @@ function plugin_singlesignon_uninstall() {
    if (sso_TableExists("glpi_plugin_singlesignon_providers")) {
       $query = "DROP TABLE `glpi_plugin_singlesignon_providers`";
       $DB->query($query) or die("error deleting glpi_plugin_singlesignon_providers");
+   }
+
+   if (sso_TableExists("glpi_plugin_singlesignon_providers_users")) {
+      $query = "DROP TABLE `glpi_plugin_singlesignon_providers_users`";
+      $DB->query($query) or die("error deleting glpi_plugin_singlesignon_providers_users");
    }
 
    return true;

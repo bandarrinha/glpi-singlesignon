@@ -34,5 +34,12 @@
         "url_access_token": "https://www.linkedin.com/oauth/v2/accessToken",
         "url_resource_owner_details": "https://api.linkedin.com/v2/me",
         "scope": "r_liteprofile r_emailaddress"
+    },
+    "govbr": {
+        "url_authorize": "https://sso.acesso.gov.br/authorize",
+        "url_access_token": "https://sso.acesso.gov.br/token",
+        "url_resource_owner_details": "https://sso.acesso.gov.br/userinfo",
+        "scope": "openid email phone profile govbr_confiabilidades",
+        "url_govbr_levels": "https://api.acesso.gov.br/confiabilidades/v3/contas/<cpf>/niveis?response-type=ids"
     }
 }
