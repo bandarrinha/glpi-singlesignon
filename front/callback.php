@@ -30,7 +30,10 @@ define('GLPI_USE_CSRF_CHECK', 0);
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ERROR);
+if ($signon_provider->debug) {
+   error_reporting(E_ALL);
+}
 
 include('../../../inc/includes.php');
 
