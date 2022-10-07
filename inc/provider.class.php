@@ -148,7 +148,6 @@ class PluginSinglesignonProvider extends CommonDBTM {
          $hide_govbr_fields = 'style="display: none;"';
       }
 
-
       echo "<tr class='tab_bg_1'>";
       echo "<td>" . __sso('Scope') . "</td>";
       echo "<td><input type='text' style='width:96%' name='scope' value='" . $this->getScope() . "'></td>";
@@ -1158,7 +1157,7 @@ class PluginSinglesignonProvider extends CommonDBTM {
     *
     * @return boolean
     */
-    public function checkGovbrRequiredLevels() {
+   public function checkGovbrRequiredLevels() {
       $required_levels = $this->getGovbrRequiredLevels();
       if (!isset($required_levels) || empty($required_levels)) {
          return true;

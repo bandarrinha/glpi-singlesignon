@@ -72,7 +72,7 @@ $user_id = Session::getLoginUserID();
 $REDIRECT = "";
 
 if ($user_id || $signon_provider->login()) {
-   if($signon_provider->fields['type'] == 'govbr' && !$signon_provider->checkGovbrRequiredLevels()) {
+   if ($signon_provider->fields['type'] == 'govbr' && !$signon_provider->checkGovbrRequiredLevels()) {
       // we have done at least a good login? No, we exit.
       Html::nullHeader("Login", $CFG_GLPI["root_doc"] . '/index.php');
       echo '<div class="center b">' . __sso('User does not have required level at gov.br account connect in GLPI') . '<br><br>';
