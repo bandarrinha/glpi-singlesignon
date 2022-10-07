@@ -903,7 +903,9 @@ class PluginSinglesignonProvider extends CommonDBTM {
 
       $url = $fields['url_govbr_levels'];
 
-      $url = str_replace("cpf", $cpf, $url);
+      if ($cpf) {
+         $url = str_replace("cpf", $cpf, $url);
+      }
 
       return $url;
    }
