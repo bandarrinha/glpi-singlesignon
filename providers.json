@@ -40,6 +40,6 @@
         "url_access_token": "https://sso.acesso.gov.br/token",
         "url_resource_owner_details": "https://sso.acesso.gov.br/userinfo",
         "scope": "openid email phone profile govbr_confiabilidades",
-        "url_govbr_levels": "https://api.acesso.gov.br/confiabilidades/v3/contas/<cpf>/niveis?response-type=ids"
+        "url_govbr_levels": "https://api.acesso.gov.br/confiabilidades/v3/contas/cpf/niveis?response-type=ids"
     }
 }
