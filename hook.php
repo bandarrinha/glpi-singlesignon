@@ -231,7 +231,7 @@ function plugin_singlesignon_install() {
                   `url_access_token`                varchar(255) COLLATE utf8_unicode_ci NULL,
                   `url_resource_owner_details`      varchar(255) COLLATE utf8_unicode_ci NULL,
                   `url_govbr_levels`                varchar(255) COLLATE utf8_unicode_ci NULL,
-                  `govbr_required_levels`           varchar(255) COLLATE utf8_unicode_ci NULL,
+                  `govbr_minimum_level`             varchar(255) COLLATE utf8_unicode_ci NULL,
                   `govbr_use_email_to_link_account` tinyint(1) NOT NULL DEFAULT '0',
                   `is_active`                       tinyint(1) NOT NULL DEFAULT '0',
                   `is_deleted`                      tinyint(1) NOT NULL default '0',
@@ -272,10 +272,10 @@ function plugin_singlesignon_install() {
       if ($DB->numrows($result) != 1) {
          $DB->query("ALTER TABLE glpi_plugin_singlesignon_providers ADD url_govbr_levels varchar(255) COLLATE utf8_unicode_ci NULL") or die($DB->error());
       }
-      $query = "SHOW COLUMNS FROM glpi_plugin_singlesignon_providers LIKE 'govbr_required_levels'";
+      $query = "SHOW COLUMNS FROM glpi_plugin_singlesignon_providers LIKE 'govbr_minimum_level'";
       $result = $DB->query($query) or die($DB->error());
       if ($DB->numrows($result) != 1) {
-         $DB->query("ALTER TABLE glpi_plugin_singlesignon_providers ADD govbr_required_levels varchar(255) COLLATE utf8_unicode_ci NULL") or die($DB->error());
+         $DB->query("ALTER TABLE glpi_plugin_singlesignon_providers ADD govbr_minimum_level tinyint(1) COLLATE utf8_unicode_ci NULL") or die($DB->error());
       }
       $query = "SHOW COLUMNS FROM glpi_plugin_singlesignon_providers LIKE 'govbr_use_email_to_link_account'";
       $result = $DB->query($query) or die($DB->error());

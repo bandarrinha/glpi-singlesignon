@@ -57,6 +57,41 @@ $signon_provider->checkAuthorization();
 
 $test = PluginSinglesignonToolbox::getCallbackParameters('test');
 
+if ($signon_provider->fields['type'] == 'govbr' && !$signon_provider->checkGovbrRequiredLevels()) {
+   Html::nullHeader("Login", $CFG_GLPI["root_doc"] . '/index.php');
+   echo '<div class="center b">' . __sso("User does not have the required security level at gov.br to connect") . '<br> ';
+   $required_levels = $signon_provider->getGovbrRequiredLevels();
+   $ids = "";
+   $levels = "";
+   foreach ($required_levels as $id => $level) {
+      if ($ids != "") {
+         $ids .= "/";
+         $levels .= " " . __sso("or") . " ";
+      }
+      $ids .= strval($id);
+      $levels .= $level;
+   }
+   echo __sso('Minimum required levels: ') . $levels . '<br>';
+   echo '<a href="https://confiabilidades.staging.acesso.gov.br/?client_id=atendimento.tglp10.sof.intra&niveis=(' . $ids . ')" ' .
+   ' class="singlesignon">' . __sso("Rise your security level at gov.br") . '</a>' . '<br><br>';
+   // Logout whit noAUto to manage auto_login with errors
+   echo '<a href="' . $CFG_GLPI["root_doc"] . '/front/logout.php?noAUTO=1' .
+   str_replace("?", "&", $REDIRECT) . '" class="singlesignon">' . __('Log in again') . '</a> ';
+   echo '</div>';
+   echo '<script type="text/javascript">
+      if (window.opener) {
+         $(".singlesignon").on("click", function (e) {
+            e.preventDefault();
+            window.opener.location = $(this).attr("href");
+            window.focus();
+            window.close();
+         });
+      }
+   </script>';
+   Html::nullFooter();
+   exit();
+}
+
 if ($test) {
    $signon_provider->debug = true;
    Html::nullHeader("Login", $CFG_GLPI["root_doc"] . '/index.php');
@@ -71,31 +106,9 @@ if ($test) {
 }
 
 $user_id = Session::getLoginUserID();
-
 $REDIRECT = "";
 
 if ($user_id || $signon_provider->login()) {
-   if ($signon_provider->fields['type'] == 'govbr' && !$signon_provider->checkGovbrRequiredLevels()) {
-      // we have done at least a good login? No, we exit.
-      Html::nullHeader("Login", $CFG_GLPI["root_doc"] . '/index.php');
-      echo '<div class="center b">' . __sso('User does not have required level at gov.br account connect in GLPI') . '<br><br>';
-      // Logout whit noAUto to manage auto_login with errors
-      echo '<a href="' . $CFG_GLPI["root_doc"] . '/front/logout.php?noAUTO=1' .
-      str_replace("?", "&", $REDIRECT) . '" class="singlesignon">' . __('Log in again') . '</a></div>';
-      echo '<script type="text/javascript">
-         if (window.opener) {
-            $(".singlesignon").on("click", function (e) {
-               e.preventDefault();
-               window.opener.location = $(this).attr("href");
-               window.focus();
-               window.close();
-            });
-         }
-      </script>';
-      Html::nullFooter();
-      exit();
-   }
-
    $user_id = $user_id ?: Session::getLoginUserID();
 
    if ($user_id) {

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: singlesignon 1.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/bandarrinha/glpi-singlesignon/"
 "issues\n"
-"POT-Creation-Date: 2022-10-06 21:27-0300\n"
+"POT-Creation-Date: 2022-10-31 11:43-0300\n"
 "PO-Revision-Date: 2022-06-30 12:00-0300\n"
 "Last-Translator: Edgard Lorraine Messias <bandarrinha@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,29 +18,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: front/callback.php:40
+#: front/callback.php:43
 msgid "Provider not defined."
 msgstr "Proveedor no definido."
 
-#: front/callback.php:46
+#: front/callback.php:49
 msgid "Provider not found."
 msgstr "Proveedor no encontrado."
 
-#: front/callback.php:50
+#: front/callback.php:53
 msgid "Provider not active."
 msgstr "Proveedor no activado."
 
-#: front/callback.php:78
-msgid "User does not have required level at gov.br account connect in GLPI"
+#: front/callback.php:62
+msgid "User does not have the required security level at gov.br to connect"
+msgstr ""
+
+#: front/callback.php:69
+msgid "or"
+msgstr ""
+
+#: front/callback.php:74
+msgid "Minimum required levels: "
+msgstr ""
+
+#: front/callback.php:76
+msgid "Rise your security level at gov.br"
 msgstr ""
 
 #: front/provider.form.php:86 front/provider.form.php:88 front/provider.php:33
-#: front/provider.php:35 inc/preference.class.php:89 inc/provider.class.php:84
+#: front/provider.php:35 inc/preference.class.php:89 inc/provider.class.php:92
 #: setup.php:67
 msgid "Single Sign-on"
 msgstr "Single Sign-on"
 
-#: inc/preference.class.php:172 inc/provider.class.php:77
+#: inc/preference.class.php:172 inc/provider.class.php:85
 msgid "Single Sign-on Provider"
 msgstr "Proveedor de Single Sign-on"
 
@@ -48,146 +60,158 @@ msgstr "Proveedor de Single Sign-on"
 msgid "Linked accounts"
 msgstr "Cuentas vinculadas"
 
-#: inc/provider.class.php:125
+#: inc/provider.class.php:61
+msgid "Bronze"
+msgstr ""
+
+#: inc/provider.class.php:62
+msgid "Silver"
+msgstr ""
+
+#: inc/provider.class.php:63
+msgid "Gold"
+msgstr ""
+
+#: inc/provider.class.php:133
 msgid "SSO Type"
 msgstr "Tipo de SSO"
 
-#: inc/provider.class.php:133 inc/provider.class.php:493
+#: inc/provider.class.php:141 inc/provider.class.php:507
 msgid "Client ID"
 msgstr "Identificación del cliente"
 
-#: inc/provider.class.php:135 inc/provider.class.php:501
+#: inc/provider.class.php:143 inc/provider.class.php:515
 msgid "Client Secret"
 msgstr "Secreto del cliente"
 
-#: inc/provider.class.php:153 inc/provider.class.php:509
+#: inc/provider.class.php:160 inc/provider.class.php:523
 msgid "Scope"
 msgstr "Alcance"
 
-#: inc/provider.class.php:155 inc/provider.class.php:517
+#: inc/provider.class.php:162 inc/provider.class.php:531
 msgid "Extra Options"
 msgstr "Opciones adicionales"
 
-#: inc/provider.class.php:160 inc/provider.class.php:525
+#: inc/provider.class.php:167 inc/provider.class.php:539
 msgid "Authorize URL"
 msgstr "URL de autorización"
 
-#: inc/provider.class.php:165 inc/provider.class.php:533
+#: inc/provider.class.php:172 inc/provider.class.php:547
 msgid "Access Token URL"
 msgstr "URL del token de acceso"
 
-#: inc/provider.class.php:170 inc/provider.class.php:541
+#: inc/provider.class.php:177 inc/provider.class.php:555
 msgid "Resource Owner Details URL"
 msgstr "URL de detalles del propietario del recurso"
 
-#: inc/provider.class.php:175 inc/provider.class.php:549
+#: inc/provider.class.php:182 inc/provider.class.php:563
 msgid "Gov.br Levels API URL"
 msgstr ""
 
-#: inc/provider.class.php:180
-msgid "Gov.br Required Levels"
-msgstr ""
-
-#: inc/provider.class.php:185
-msgid "Gov.br use email to link user account"
-msgstr ""
-
-#: inc/provider.class.php:193
-msgid "PopupAuth"
+#: inc/provider.class.php:187
+msgid "Gov.br Required Minimum Level"
 msgstr ""
 
 #: inc/provider.class.php:199
+msgid "Gov.br use email to link user account"
+msgstr ""
+
+#: inc/provider.class.php:207
+msgid "PopupAuth"
+msgstr ""
+
+#: inc/provider.class.php:213
 msgid "SplitDomain"
 msgstr ""
 
-#: inc/provider.class.php:203
+#: inc/provider.class.php:217
 #, fuzzy
 msgid "AuthorizedDomains"
 msgstr "URL de autorización"
 
-#: inc/provider.class.php:205
+#: inc/provider.class.php:219
 msgid "AuthorizedDomainsTooltip"
 msgstr ""
 
-#: inc/provider.class.php:294
+#: inc/provider.class.php:308
 msgid "Callback URL"
 msgstr "URL de devolución de llamada"
 
-#: inc/provider.class.php:298
+#: inc/provider.class.php:312
 msgid "Test Single Sign-on"
 msgstr "Pruebar Single Sign-on"
 
-#: inc/provider.class.php:356
+#: inc/provider.class.php:370
 msgid "A Name is required"
 msgstr "Se requiere un nombre"
 
-#: inc/provider.class.php:362
+#: inc/provider.class.php:376
 #, php-format
 msgid "The \"%s\" is a Invalid type"
 msgstr "El \"%s\" es un tipo no válido"
 
-#: inc/provider.class.php:366
+#: inc/provider.class.php:380
 msgid "A Client ID is required"
 msgstr "Se requiere una identificación de cliente"
 
-#: inc/provider.class.php:370
+#: inc/provider.class.php:384
 msgid "A Client Secret is required"
 msgstr "Se requiere un secreto de cliente"
 
-#: inc/provider.class.php:375
+#: inc/provider.class.php:389
 msgid "An Authorize URL is required"
 msgstr "Se requiere una URL de autorización"
 
-#: inc/provider.class.php:377
+#: inc/provider.class.php:391
 msgid "The Authorize URL is invalid"
 msgstr "La URL de autorización no es válida"
 
-#: inc/provider.class.php:381
+#: inc/provider.class.php:395
 msgid "An Access Token URL is required"
 msgstr "Se requiere una URL de token de acceso"
 
-#: inc/provider.class.php:383
+#: inc/provider.class.php:397
 msgid "The Access Token URL is invalid"
 msgstr "La URL del token de acceso no es válida"
 
-#: inc/provider.class.php:387
+#: inc/provider.class.php:401
 msgid "A Resource Owner Details URL is required"
 msgstr "Se requiere una URL de detalles del propietario del recurso"
 
-#: inc/provider.class.php:389
+#: inc/provider.class.php:403
 msgid "The Resource Owner Details URL is invalid"
 msgstr "La URL de detalles del propietario del recurso no es válida"
 
-#: inc/provider.class.php:608
+#: inc/provider.class.php:622
 msgid "Generic"
 msgstr "Genérico"
 
-#: inc/provider.class.php:609
+#: inc/provider.class.php:623
 msgid "Azure"
 msgstr "Azure"
 
-#: inc/provider.class.php:610
+#: inc/provider.class.php:624
 msgid "Facebook"
 msgstr "Facebook"
 
-#: inc/provider.class.php:611
+#: inc/provider.class.php:625
 msgid "GitHub"
 msgstr "GitHub"
 
-#: inc/provider.class.php:612
+#: inc/provider.class.php:626
 msgid "Google"
 msgstr "Google"
 
-#: inc/provider.class.php:613
+#: inc/provider.class.php:627
 msgid "Instagram"
 msgstr "Instagram"
 
-#: inc/provider.class.php:614
+#: inc/provider.class.php:628
 #, fuzzy
 msgid "LinkedIn"
 msgstr "LinkdeIn"
 
-#: inc/provider.class.php:615
+#: inc/provider.class.php:629
 msgid "gov.br"
 msgstr ""
 

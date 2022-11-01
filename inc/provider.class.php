@@ -56,6 +56,14 @@ class PluginSinglesignonProvider extends CommonDBTM {
 
    public $debug = false;
 
+   public static function getGovbrSecurityLevels() {
+      return [
+         1 => __sso('Bronze'),
+         2 => __sso('Silver'),
+         3 => __sso('Gold')
+      ];
+   }
+
    public static function canCreate() {
       return static::canUpdate();
    }
@@ -176,8 +184,15 @@ class PluginSinglesignonProvider extends CommonDBTM {
       echo "</tr>\n";
 
       echo "<tr class='tab_bg_1 sso_govbr' $hide_govbr_fields>";
-      echo "<td>" . __sso('Gov.br Required Levels') . "</td>";
-      echo "<td colspan='3'><input type='text' style='width:96%' name='govbr_required_levels' value='" . $this->getGovbrRequiredLevels() . "'></td>";
+      echo "<td>" . __sso('Gov.br Required Minimum Level') . "</td>";
+      echo "<td colspan='3'>";
+      Dropdown::showFromArray("govbr_minimum_level", $this->getGovbrSecurityLevels(),
+         [
+            'value'                 => $this->fields["govbr_minimum_level"],
+            'display_emptychoice'   => true
+         ]
+      );
+      echo "</td>";
       echo "</tr>\n";
 
       echo "<tr class='tab_bg_1 sso_govbr' $hide_govbr_fields>";
@@ -911,13 +926,20 @@ class PluginSinglesignonProvider extends CommonDBTM {
    }
 
    public function getGovbrRequiredLevels() {
-      $value = "";
+      $levels = $this->getGovbrSecurityLevels();
+      $minimum = 0;
+      $required_levels = [];
 
-      if (isset($this->fields['govbr_required_levels']) && !empty($this->fields['govbr_required_levels'])) {
-         $value = $this->fields['govbr_required_levels'];
+      if (isset($this->fields['govbr_minimum_level']) && !empty($this->fields['govbr_minimum_level'])) {
+         $minimum = intval($this->fields['govbr_minimum_level']);
+      }
+      foreach ($levels as $id => $level) {
+         if ($id >= $minimum) {
+            $required_levels[$id] = $level;
+         }
       }
 
-      return $value;
+      return $required_levels;
    }
 
    /**
@@ -1192,9 +1214,7 @@ class PluginSinglesignonProvider extends CommonDBTM {
       $headers = Plugin::doHookFunction("sso:govbr_levels_header", $headers);
 
       $content = Toolbox::callCurl($url, [
-         CURLOPT_HTTPHEADER => $headers,
-         CURLOPT_SSL_VERIFYHOST => false,
-         CURLOPT_SSL_VERIFYPEER => false,
+         CURLOPT_HTTPHEADER => $headers
       ]);
 
       if ($this->debug) {
@@ -1210,8 +1230,10 @@ class PluginSinglesignonProvider extends CommonDBTM {
             return false;
          }
          foreach ($data as $level) {
-            if (strpos($required_levels, $level['id'])!== false) {
-               return true;
+            foreach ($required_levels as $id => $l) {
+               if (intval($level['id']) >= intval($id)) {
+                  return true;
+               }
             }
          }
       } catch (\Exception $ex) {
