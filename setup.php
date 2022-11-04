@@ -25,7 +25,7 @@
  * ---------------------------------------------------------------------
  */
 
-define('PLUGIN_SINGLESIGNON_VERSION', '1.4.2');
+define('PLUGIN_SINGLESIGNON_VERSION', '1.4.3');
 
 $folder = basename(dirname(__FILE__));
 

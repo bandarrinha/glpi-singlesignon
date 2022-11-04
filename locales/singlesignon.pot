@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: singlesignon 1.4.2\n"
 "Report-Msgid-Bugs-To: https://github.com/bandarrinha/glpi-singlesignon/"
 "issues\n"
-"POT-Creation-Date: 2022-10-31 11:56-0300\n"
+"POT-Creation-Date: 2022-11-04 15:07-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,6 +50,10 @@ msgstr ""
 #: front/provider.php:35 inc/preference.class.php:89 inc/provider.class.php:92
 #: setup.php:67
 msgid "Single Sign-on"
+msgstr ""
+
+#: hook.php:60
+msgid "User/Password"
 msgstr ""
 
 #: inc/preference.class.php:172 inc/provider.class.php:85

@@ -57,7 +57,7 @@ function plugin_singlesignon_display_login() {
    if (!empty($html)) {
       echo '<div class="singlesignon-box">';
       echo implode(" \n", $html);
-      echo PluginSinglesignonToolbox::renderButton('#', ['name' => __('GLPI')], 'vsubmit old-login');
+      echo PluginSinglesignonToolbox::renderButton('#', ['name' => __sso('User/Password')], 'vsubmit old-login');
       echo '</div>';
       ?>
       <style>
@@ -107,7 +107,8 @@ function plugin_singlesignon_display_login() {
       <?php if (version_compare(GLPI_VERSION, '10', '>=')) : ?>
                var $boxButtons = $('.singlesignon-box');
 
-               $boxButtons.parent().hide();
+               var $bottombox = $boxButtons.siblings("div:eq(1)");
+               $bottombox.hide();
 
                var $line = $boxButtons.prev('hr');
                if ($line.length) {
@@ -129,7 +130,9 @@ function plugin_singlesignon_display_login() {
                   e.preventDefault();
                   $boxButtons.slideUp(function() {
                      $boxLogin.slideDown(function() {
-                        $boxLogin.find(':input:eq(0)').focus();
+                        $bottombox.slideDown(function() {
+                           $boxLogin.find(':input:eq(0)').focus();
+                        });
                      });
                   });
                });
@@ -143,8 +146,10 @@ function plugin_singlesignon_display_login() {
 
                $backLogin.on('click', function(e) {
                   e.preventDefault();
-                  $boxLogin.slideUp(function() {
-                     $boxButtons.slideDown();
+                  $bottombox.slideUp(function() {
+                     $boxLogin.slideUp(function() {
+                           $boxButtons.slideDown();
+                     });
                   });
                });
 
