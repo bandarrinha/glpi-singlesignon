@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: singlesignon 1.4.2\n"
+"Project-Id-Version: singlesignon 1.4.3\n"
 "Report-Msgid-Bugs-To: https://github.com/bandarrinha/glpi-singlesignon/"
 "issues\n"
-"POT-Creation-Date: 2022-11-04 15:07-0300\n"
-"PO-Revision-Date: 2022-11-04 15:07-0300\n"
+"POT-Creation-Date: 2022-11-08 16:55-0300\n"
+"PO-Revision-Date: 2022-11-08 16:55-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en_GB\n"
@@ -30,21 +30,25 @@ msgstr "Provider not found."
 msgid "Provider not active."
 msgstr "Provider not active."
 
-#: front/callback.php:62
+#: front/callback.php:65
 msgid "User does not have the required security level at gov.br to connect"
 msgstr "User does not have the required security level at gov.br to connect"
 
-#: front/callback.php:69
+#: front/callback.php:72
 msgid "or"
 msgstr "or"
 
-#: front/callback.php:74
+#: front/callback.php:77
 msgid "Minimum required levels: "
 msgstr "Minimum required levels: "
 
-#: front/callback.php:76
+#: front/callback.php:79
 msgid "Rise your security level at gov.br"
 msgstr "Rise your security level at gov.br"
+
+#: front/callback.php:81
+msgid "Fail to verify gov.br account security level"
+msgstr "Fail to verify gov.br account security level"
 
 #: front/provider.form.php:86 front/provider.form.php:88 front/provider.php:33
 #: front/provider.php:35 inc/preference.class.php:89 inc/provider.class.php:92
@@ -216,6 +220,23 @@ msgstr "LinkedIn"
 #: inc/provider.class.php:629
 msgid "gov.br"
 msgstr "gov.br"
+
+#: inc/provider.class.php:1191
+msgid "Unable do get access token"
+msgstr "Unable do get access token"
+
+#: inc/provider.class.php:1196
+msgid "Unable do get gov.br user information"
+msgstr "Unable do get gov.br user information"
+
+#: inc/provider.class.php:1200
+msgid "Unable do get subject id"
+msgstr "Unable do get subject id"
+
+#: inc/provider.class.php:1226 inc/provider.class.php:1240
+#: inc/provider.class.php:1253
+msgid "Connection failure"
+msgstr "Connection failure"
 
 #: inc/toolbox.class.php:191
 #, php-format

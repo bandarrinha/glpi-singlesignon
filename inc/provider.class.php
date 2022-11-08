@@ -1179,7 +1179,7 @@ class PluginSinglesignonProvider extends CommonDBTM {
 
    /**
     *
-    * @return boolean
+    * @return boolean|string
     */
    public function checkGovbrRequiredLevels() {
       $required_levels = $this->getGovbrRequiredLevels();
@@ -1188,16 +1188,16 @@ class PluginSinglesignonProvider extends CommonDBTM {
       }
       $token = $this->getAccessToken();
       if (!$token) {
-         return false;
+         return __sso('Unable do get access token');
       }
       $resource_array = $this->getResourceOwner();
 
       if (!$resource_array) {
-         return false;
+         return __sso('Unable do get gov.br user information');
       }
       $cpf = $resource_array['sub'];
       if (!$cpf) {
-         return false;
+         return __sso('Unable do get subject id');
       }
       if ($this->debug) {
          print_r($resource_array);
@@ -1213,21 +1213,31 @@ class PluginSinglesignonProvider extends CommonDBTM {
 
       $headers = Plugin::doHookFunction("sso:govbr_levels_header", $headers);
 
+      $error = "";
+      $curlerror = "";
       $content = Toolbox::callCurl($url, [
          CURLOPT_HTTPHEADER => $headers
-      ]);
+      ], $error, $curlerror);
 
       if ($this->debug) {
-         print_r("\ncheckGovbrRequiredLevels: $url\n");
+         print_r("\ncheckGovbrRequiredLevels errors: $error $curlerror\n");
+      }
+      if ($error != "" || $curlerror != "") {
+         return __sso('Connection failure');
+      }
+
+      if ($this->debug) {
+         print_r("\ncheckGovbrRequiredLevels URL: $url\n");
       }
 
       try {
          $data = json_decode($content, true);
          if ($this->debug) {
-            print_r($data);
+            print_r("\n Response: \n");
+            print_r($content);
          }
-         if (empty($data) || !is_array($data)) {
-            return false;
+         if (empty($data) || !is_array($data) || $data['errors'] !== null) {
+            return __sso('Connection failure');
          }
          foreach ($data as $level) {
             foreach ($required_levels as $id => $l) {
@@ -1240,7 +1250,7 @@ class PluginSinglesignonProvider extends CommonDBTM {
          if ($this->debug) {
             print_r($content);
          }
-         return false;
+         return __sso('Connection failure');
       }
 
       return false;
